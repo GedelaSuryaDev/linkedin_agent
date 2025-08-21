@@ -104,6 +104,8 @@ A powerful LinkedIn automation tool that helps you generate, schedule, and post 
 - View scheduled and published posts
 - Quick access to content generation
 - Performance metrics at a glance
+  <img width="1600" height="1000" alt="image" src="https://github.com/user-attachments/assets/86902d11-89b4-4761-ace3-37c2073ba2ab" />
+
 
 ### Content Generation
 - AI-powered post creation
