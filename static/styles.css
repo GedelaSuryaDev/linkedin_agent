@@ -1,0 +1,8 @@
+body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 2em; }
+h1 { color: #0077b5; }
+table { border-collapse: collapse; width: 100%; background: #fff; }
+th, td { border: 1px solid #ddd; padding: 8px; }
+th { background: #0077b5; color: #fff; }
+button { background: #0077b5; color: #fff; border: none; padding: 6px 12px; cursor: pointer; border-radius: 4px; }
+button:hover { background: #005983; }
+form { display: inline; }

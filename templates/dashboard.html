@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Linky - Your LinkedIn Friend</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1 style="color:#0077b5;">Linky <span style="font-size:0.7em;color:#333;">Your LinkedIn Friend</span></h1>
+    <form action="/generate" method="post" enctype="multipart/form-data">
+        <label for="topic">Enter a topic:</label>
+        <input type="text" id="topic" name="topic" required>
+        <br><br>
+        <label>Image Options:</label><br>
+        <input type="radio" id="no_image" name="image_option" value="none" checked>
+        <label for="no_image">No image</label>
+        <input type="radio" id="manual_image" name="image_option" value="manual">
+        <label for="manual_image">Upload image</label>
+        <input type="radio" id="auto_image" name="image_option" value="auto">
+        <label for="auto_image">Auto-generate image (AI)</label>
+        <br><br>
+        <div id="manual_image_upload" style="display:none;">
+            <label for="image">Upload image:</label>
+            <input type="file" id="image" name="image" accept="image/*">
+        </div>
+        <script>
+        document.querySelectorAll('input[name="image_option"]').forEach(function(el) {
+            el.addEventListener('change', function() {
+                document.getElementById('manual_image_upload').style.display = (this.value === 'manual') ? 'block' : 'none';
+            });
+        });
+        </script>
+        <label for="enable_schedule">Enable Scheduling?</label>
+        <input type="checkbox" id="enable_schedule" name="enable_schedule" onchange="document.getElementById('schedule_time').style.display = this.checked ? 'block' : 'none';">
+        <br>
+        <div id="schedule_time" style="display:none;">
+            <label for="scheduled_time">Select Date & Time:</label>
+            <input type="datetime-local" id="scheduled_time" name="scheduled_time">
+        </div>
+        <br>
+        <button type="submit">Generate Post</button>
+    </form>
+    <br>
+    <a href="/settings">Settings</a>
+
+    <h2>Posts</h2>
+    <form action="/export_csv" method="post" style="margin-bottom:1em;">
+        <button type="submit" style="background:#0077b5;color:#fff;border:none;padding:6px 16px;border-radius:4px;cursor:pointer;">Export All Posts to CSV</button>
+    </form>
+    <table>
+        <tr><th>ID</th><th>Content</th><th>Image</th><th>Status</th><th>Actions</th></tr>
+        {% for post in posts %}
+        <tr>
+            <td>{{ post.id }}</td>
+            <td style="max-width:400px;white-space:pre-line;">{{ post.content }}</td>
+            <td>
+                {% if post.image_url %}
+                    <img src="{{ post.image_url }}" alt="Image" style="max-width:100px;max-height:100px;">
+                {% else %}
+                    No image
+                {% endif %}
+            </td>
+            <td>{{ post.status }}</td>
+            <td>
+                {% if post.status == "draft" %}
+                    <form action="/approve/{{ post.id }}" method="post"><button>Approve & Post</button></form>
+                    <form action="/reject/{{ post.id }}" method="post"><button>Reject</button></form>
+                {% elif post.status == "posted" %}
+                    ✅ Posted → {{ post.linkedin_url }}
+                {% elif post.status == "rejected" %}
+                    ❌ Rejected
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

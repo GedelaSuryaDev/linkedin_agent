@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Linky Settings</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div style="max-width:500px;margin:auto;background:#fff;border-radius:8px;padding:2em;box-shadow:0 2px 8px #0077b533;">
+        <h1 style="color:#0077b5;text-align:center;">Linky <span style="font-size:0.7em;color:#333;">Settings</span></h1>
+        <p style="text-align:center;color:#555;">Personalize your LinkedIn agent and business promotion options.</p>
+        <form action="/settings" method="post">
+            <fieldset style="border:none;margin-bottom:1.5em;">
+                <legend style="font-weight:bold;color:#0077b5;">Personal Info</legend>
+                <label for="title">Your Title:</label><br>
+                <input type="text" id="title" name="title" value="{{ settings.title }}" required style="width:100%;margin-bottom:1em;"><br>
+                <label for="handle">Social Handle:</label><br>
+                <input type="text" id="handle" name="handle" value="{{ settings.handle }}" required style="width:100%;margin-bottom:1em;"><br>
+                <label for="website">Website URL:</label><br>
+                <input type="url" id="website" name="website" value="{{ settings.website }}" style="width:100%;margin-bottom:1em;"><br>
+            </fieldset>
+            <fieldset style="border:none;margin-bottom:1.5em;">
+                <legend style="font-weight:bold;color:#0077b5;">Business Promotion & Engagement</legend>
+                <label for="enable_promotion">Enable Business Promotion?</label>
+                <input type="checkbox" id="enable_promotion" name="enable_promotion" {% if settings.enable_promotion %}checked{% endif %}>
+                <span style="color:#555;font-size:0.9em;">(Adds a promotional message to your posts)</span>
+                <br><br>
+                <label for="enable_auto_comment_own">Auto-comment on own posts?</label>
+                <input type="checkbox" id="enable_auto_comment_own" name="enable_auto_comment_own" {% if settings.enable_auto_comment_own %}checked{% endif %}>
+                <span style="color:#555;font-size:0.9em;">(Agent will reply to comments on your posts)</span>
+                <br><br>
+                <label for="enable_comment_other">Comment on other posts?</label>
+                <input type="checkbox" id="enable_comment_other" name="enable_comment_other" {% if settings.enable_comment_other %}checked{% endif %}>
+                <span style="color:#555;font-size:0.9em;">(Agent will comment on selected LinkedIn posts)</span>
+            </fieldset>
+            <button type="submit" style="background:#0077b5;color:#fff;border:none;padding:10px 24px;border-radius:4px;cursor:pointer;font-size:1em;">Save Settings</button>
+        </form>
+        <br>
+        <div style="text-align:center;"><a href="/" style="color:#0077b5;text-decoration:none;font-weight:bold;">← Back to Dashboard</a></div>
+    </div>
+</body>
+</html>
